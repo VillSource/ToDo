@@ -14,25 +14,27 @@ public class TaskItemsController(
     {
         var items = await _taskItemService.GetItemsAsync();
 
-        if (items.Count == 0)
+        if (items.Status == Utility.ResultStatus.NotFound)
             return NotFound();
 
-        return Ok(items);
+        if (items.Status == Utility.ResultStatus.Success)
+            return Ok(items.Value);
+
+        return BadRequest();
     }
 
     [HttpGet("{id}")]
-     public async Task<IActionResult> GetTaskItemAsync(int id)
+    public async Task<IActionResult> GetTaskItemAsync(int id)
     {
-        try
-        {
-            var items = await _taskItemService.GetItemAsync(id);
-            return Ok(items);
-        }
-        catch
-        {
-            return NotFound();
-        }
+        var items = await _taskItemService.GetItemAsync(id);
 
+        if (items.Status == Utility.ResultStatus.NotFound)
+            return NotFound();
+
+        if (items.Status == Utility.ResultStatus.Success)
+            return Ok(items.Value);
+
+        return BadRequest();
     }
 
 }

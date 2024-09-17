@@ -9,9 +9,11 @@ public class TaskItemService(
         TimeMachine _timeMachine
     ) : ITaskItemService
 {
-    public async Task<TaskItemDTO> GetItemAsync(int id)
+    public async Task<Result<TaskItemDTO>> GetItemAsync(int id)
     {
-        var item = await _itemReaderRepo.GetByIdAsync(id) ?? throw new Exception("Not Found Task Item");
+        var item = await _itemReaderRepo.GetByIdAsync(id);
+
+        if (item is null) return Result.NotFound();
 
         bool? isDone = item.Status switch
         {
@@ -24,7 +26,7 @@ public class TaskItemService(
             ? item.EndDate >= _timeMachine.Now()
             : null;
 
-        return new()
+        return new TaskItemDTO()
         {
             Id = item.Id,
             Title = item.Title,
@@ -38,9 +40,9 @@ public class TaskItemService(
         };
     }
 
-    public async Task<IList<TaskItemDTO>> GetItemsAsync()
+    public async Task<Result<IList<TaskItemDTO>>> GetItemsAsync()
     {
-        return _itemReaderRepo.ToBlockingEnumerable().Select(i => new TaskItemDTO()
+        var items = _itemReaderRepo.ToBlockingEnumerable().Select(i => new TaskItemDTO()
         {
             Id = i.Id,
             Title = i.Title,
@@ -54,5 +56,9 @@ public class TaskItemService(
                 _ => false
             }            
         }).ToList();
+
+        if (items.Count == 0) return Result.NotFound();
+
+        return items;
     }
 }

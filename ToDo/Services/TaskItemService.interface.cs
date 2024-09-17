@@ -1,9 +1,10 @@
 ﻿using ToDo.DTO;
+using ToDo.Utility;
 
 namespace ToDo.Services;
 
 public interface ITaskItemService
 {
-    Task<IList<TaskItemDTO>> GetItemsAsync();
-    Task<TaskItemDTO> GetItemAsync(int id);
+    Task<Result<IList<TaskItemDTO>>> GetItemsAsync();
+    Task<Result<TaskItemDTO>> GetItemAsync(int id);
 }
