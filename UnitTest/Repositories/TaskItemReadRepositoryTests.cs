@@ -49,4 +49,16 @@ public class TaskItemReadRepositoryTests : IDisposable
         actual.Should().NotBeNull();
         actual!.Title.Should().Be(expectedTitle);
     }
+
+    [Theory]
+    [InlineData(11)]
+    public async Task GetByIdAsync_Invalid_Test(int id)
+    {
+        var repo = ObjectUnderTest;
+
+        var actual = await repo.GetByIdAsync(id, CancellationToken.None);
+
+        actual.Should().BeNull();
+    }
+
 }
