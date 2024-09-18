@@ -41,7 +41,7 @@ public class TaskItemServiceTests : IDisposable
     {
         var service = ObjectUnderTest;
         _itemRepoMock.Setup(repo=>repo.GetByIdAsync(1, It.IsAny<CancellationToken>()))
-            .Return(new TaskItemEntity(){Id = 1});
+            .ReturnsAsync(new TaskItemEntity(){Id = 1});
 
         var actual = await service.GetItemAsync(id);
 
