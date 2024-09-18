@@ -5,9 +5,14 @@ using ToDo.Repositories.Abstracts;
 
 namespace ToDo.Repositories;
 
-public class TaskItemReadRepository(AppDbContext _context)
-    : ReadOnlyRepositoryBase<TaskItemEntity>
+public class TaskItemReadRepository : ReadOnlyRepositoryBase<TaskItemEntity>
 {
+    private readonly AppDbContext _context;
+
+    public TaskItemReadRepository(){}
+    public TaskItemReadRepository(AppDbContext context){
+        _context = context;
+    }
     internal override IAsyncEnumerator<TaskItemEntity> _items => _context.TaskItems.GetAsyncEnumerator();
 
     public async Task<IList<TaskItemEntity>> ListAsync(int? take = default, CancellationToken ct = default){
