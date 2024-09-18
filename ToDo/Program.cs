@@ -17,10 +17,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("TODO_DB"));
 
 // Add Services
-builder.Services.AddScoped<TaskItemService>();
+builder.Services.AddScoped<ITaskItemService,TaskItemService>();
 
 // Add Repository
-builder.Services.AddScoped<TaskItemReadRepository>();
+builder.Services.AddScoped<TaskItemReadRepositoryBase,TaskItemReadRepository>();
 
 // Add Utilities
 builder.Services.AddScoped<TimeMachine>();

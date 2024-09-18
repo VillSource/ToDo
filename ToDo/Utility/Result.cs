@@ -10,6 +10,26 @@ public class Result<T>
     public ResultStatus Status { get; set; }
     public T? Value { get; set; }
 
+    public static Result<T> Unviable(string? message=default)
+    {
+        return new()
+        {
+            IsSuccess = true,
+            Status = ResultStatus.Unviable,
+            Message = message ?? ResultStatus.Unviable.ToString(),
+        };
+    }
+
+    public static Result<T> Success(string? message=default)
+    {
+        return new()
+        {
+            IsSuccess = true,
+            Status = ResultStatus.Success,
+            Message = message ?? ResultStatus.Success.ToString(),
+        };
+    }
+
     public static Result<T> NotFound(string? message=default)
     {
         return new()

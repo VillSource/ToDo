@@ -4,3 +4,4 @@ public class TimeMachine
 {
     public DateTime Now() => DateTime.Now;
 }
+
