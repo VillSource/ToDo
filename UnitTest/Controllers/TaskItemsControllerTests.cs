@@ -1,13 +1,9 @@
-﻿using Xunit;
-using ToDo.Controllers;
-using System;
-using Moq;
+﻿using Moq;
 using ToDo.Services;
 using FluentAssertions;
 using ToDo.Utility;
 using ToDo.DTO;
 using System.Collections;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -39,10 +35,19 @@ public class TaskItemsControllerTests : IDisposable
         actual?.StatusCode.Should().Be(expectResult);
     }
 
-    [Fact()]
-    public void GetTaskItemAsyncTest()
+    [Theory]
+    [ClassData(typeof(GetTaskItemsAsyncTestAsyncData))]
+    public async Task GetTaskItemAsyncTestAsync(Result<TaskItemDTO> mockData, int expectResult)
     {
-        Xunit.Assert.Fail("This test needs an implementation");
+        _taskItemServiceMock.Setup(s => s.GetItemAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(mockData);
+
+        var controller = ObjectUnderTest;
+
+        var actual = await controller.GetTaskItemAsync(0) as IStatusCodeActionResult;
+
+        actual.Should().NotBeNull();
+        actual?.StatusCode.Should().Be(expectResult);
     }
 
 }
