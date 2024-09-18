@@ -60,9 +60,15 @@ jobs:
     - name: Tree
       run: tree
 
-    - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
+    # - name: Add Coverage PR Comment
+      # uses: marocchino/sticky-pull-request-comment@v2
       # if: github.event_name == 'pull_request'
+      # with:
+        # recreate: true
+        # path: code-coverage-results.md
+    - name: Add a comment to the PR
+      uses: Libra-foundation/Pull-Request-Comments@V1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        recreate: true
-        path: code-coverage-results.md
+        filename: code-coverage-results.md
