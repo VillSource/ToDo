@@ -6,7 +6,7 @@ namespace ToDo.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class TaskItemsController(
-        TaskItemService _taskItemService
+        ITaskItemService _taskItemService
     ) : ControllerBase
 {
     [HttpGet]
