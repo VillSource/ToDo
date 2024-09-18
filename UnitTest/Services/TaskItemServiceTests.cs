@@ -40,7 +40,7 @@ public class TaskItemServiceTests : IDisposable
     public async Task GetItemAsyncTest(int id, bool expectSuccess, ResultStatus expectedStatus)
     {
         var service = ObjectUnderTest;
-        _itemRepoMock.Setup(repo=>repo.GetByIdAsync(It.Is<int>(1), It.IsAny<CancellationToken>()))
+        _itemRepoMock.Setup(repo=>repo.GetByIdAsync(1, It.IsAny<CancellationToken>()))
             .Return(new TaskItemEntity(){Id = 1});
 
         var actual = await service.GetItemAsync(id);
