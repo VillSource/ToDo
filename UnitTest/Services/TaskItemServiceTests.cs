@@ -20,11 +20,11 @@ public class TaskItemServiceTests : IDisposable
     private TaskItemService ObjectUnderTest => new(_itemRepoMock.Object, _timeMachineMock.Object);
 
     // Setup
-    public TaskItemReadRepositoryTests()
-    {
+    // public TaskItemReadRepositoryTests()
+    // {
         // _timeMachineMock.Setup(time => time.Now())
         //     .Return(FreezedAt);
-    }
+    // }
 
     // Teardown
     public void Dispose()
