@@ -7,13 +7,13 @@ namespace ToDo.Controllers;
 public class TaskBoardsController : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetTaskBoards()
+    public async Task<IActionResult> GetTaskBoards()
     {
         return Ok("NOT IMPLEMENT!!!");
     }
 
     [HttpGet("{id}")]
-     public IActionResult GetTaskBoard(int id)
+     public async Task<IActionResult> GetTaskBoard(int id)
     {
         return Ok($"GET BOARD ID {id} IS NOT IMPLEMENT!!!");
     }
