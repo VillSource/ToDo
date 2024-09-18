@@ -17,7 +17,7 @@ public class TaskItemServiceTests : IDisposable
     private readonly DateTime FreezedAt = new DateTime(2000,2,2);
 
     // Object Under Test
-    private TaskItemService ObjectUnderTest => new(_itemRepoMock.Object, _timeMachineMock.Object);
+    private ITaskItemService ObjectUnderTest => new TaskItemService(_itemRepoMock.Object, _timeMachineMock.Object);
 
     // Setup
     // public TaskItemReadRepositoryTests()
