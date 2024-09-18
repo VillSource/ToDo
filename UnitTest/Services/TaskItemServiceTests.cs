@@ -29,7 +29,8 @@ public class TaskItemServiceTests : IDisposable
     // Teardown
     public void Dispose()
     {
-        _dbContextMock.Reset();
+        _itemRepoMock.Reset();
+        _timeMachineMock.Reset();
     }
 
 
