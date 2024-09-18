@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using Moq.EntityFrameworkCore;
-using ToDo.DataContexts;
+using ToDo.Repositories;
 using ToDo.Models;
 using ToDo.Utility;
 
@@ -22,8 +22,8 @@ public class TaskItemServiceTests : IDisposable
     // Setup
     public TaskItemReadRepositoryTests()
     {
-        _timeMachineMock.Setup(time => time.Now())
-            .Return(FreezedAt);
+        // _timeMachineMock.Setup(time => time.Now())
+        //     .Return(FreezedAt);
     }
 
     // Teardown
