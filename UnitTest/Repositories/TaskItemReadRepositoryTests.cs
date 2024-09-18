@@ -38,11 +38,12 @@ public class TaskItemReadRepositoryTests : IDisposable
     }
 
 
-    [Theory]
-    [InlineData(1, "one")]
-    public async Task GetByIdAsyncTest(int id, string expectedTitle)
+    [Fact]
+    public async Task GetByIdAsyncTest()
     {
+        int id = 1;
         var repo = ObjectUnderTest;
+        string expectedTitle = "one";
 
         var actual = await repo.GetByIdAsync(id, CancellationToken.None);
 
@@ -50,10 +51,10 @@ public class TaskItemReadRepositoryTests : IDisposable
         actual!.Title.Should().Be(expectedTitle);
     }
 
-    [Theory]
-    [InlineData(11)]
-    public async Task GetByIdAsync_Invalid_Test(int id)
+    [Fact]
+    public async Task GetByIdAsync_Invalid_Test()
     {
+        int id = 11;
         var repo = ObjectUnderTest;
 
         var actual = await repo.GetByIdAsync(id, CancellationToken.None);
@@ -64,6 +65,7 @@ public class TaskItemReadRepositoryTests : IDisposable
     [Theory]
     [InlineData(null, 5)]
     [InlineData(2, 2)]
+    [InlineData(100, 5)]
     public async Task ListAsyncTest(int? take, int expectedElement){
         var repo = ObjectUnderTest;
 

@@ -5,13 +5,13 @@ using ToDo.Utility;
 namespace ToDo.Services;
 
 public class TaskItemService(
-        TaskItemReadRepository _itemReaderRepo,
+        TaskItemReadRepositoryBase _itemReaderRepo,
         TimeMachine _timeMachine
     ) : ITaskItemService
 {
-    public async Task<Result<TaskItemDTO>> GetItemAsync(int id)
+    public async Task<Result<TaskItemDTO>> GetItemAsync(int id, CancellationToken ct = default)
     {
-        var item = await _itemReaderRepo.GetByIdAsync(id);
+        var item = await _itemReaderRepo.GetByIdAsync(id, ct);
 
         if (item is null) return Result.NotFound();
 
@@ -40,9 +40,9 @@ public class TaskItemService(
         };
     }
 
-    public async Task<Result<IList<TaskItemDTO>>> GetItemsAsync()
+    public async Task<Result<IList<TaskItemDTO>>> GetItemsAsync(CancellationToken ct = default)
     {
-        var items = ( await _itemReaderRepo.ListAsync()).Select(i => new TaskItemDTO()
+        var items = (await _itemReaderRepo.ListAsync(ct: ct)).Select(i => new TaskItemDTO()
         {
             Id = i.Id,
             Title = i.Title,
@@ -54,7 +54,7 @@ public class TaskItemService(
                 Constants.TaskItemStatus.Draft => null,
                 Constants.TaskItemStatus.Abrogate => null,
                 _ => false
-            }            
+            }
         }).ToList();
 
         if (items.Count == 0) return Result.NotFound();
