@@ -53,7 +53,7 @@ jobs:
         format: markdown
         hide_branch_rate: false
         hide_complexity: true
-        indicators: true
+        indicators: false
         output: both
         thresholds: '60 80'
 
