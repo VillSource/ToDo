@@ -62,7 +62,7 @@ public class TaskItemReadRepositoryTests : IDisposable
     }
 
     [Theory]
-    [InlineData(null, _dataMockTaskItems.Count)]
+    [InlineData(null, 5)]
     [InlineData(2, 2)]
     public async Task ListAsyncTest(int? take, int expectedElement){
         var repo = ObjectUnderTest;
