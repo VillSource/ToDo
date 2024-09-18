@@ -7,13 +7,13 @@ namespace ToDo.Controllers;
 public class UserProfileController : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetUserProfiles()
+    public async Task<IActionResult> GetUserProfiles()
     {
         return Ok("NOT IMPLEMENT!!");
     }
 
     [HttpGet("{username}")]
-    public IActionResult GetUserProfile(string username)
+    public async Task<IActionResult> GetUserProfile(string username)
     {
         return Ok($"GET {username} PROFILE NOT IMPLEMENT!!");
     }

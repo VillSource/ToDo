@@ -7,18 +7,18 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ToDo.Controllers.Tests;
 
-public class UserProfileControllerTests
+public class TaskBoardsControllerTests
 {
 
-    private UserProfileController ObjectUnderTest => new();
+    private TaskBoardsController ObjectUnderTest => new();
 
     [Theory]
     [ClassData(typeof(GetTaskBoardsAsyncTestAsyncData))]
-    public async Task GetUserProfilessAsyncTestAsync(Result<IList<UserProfileDTO>> mockData, int expectResult)
+    public async Task GetTaskBoardsAsyncTestAsync(Result<IList<TaskBoardDTO>> mockData, int expectResult)
     {
         var controller = ObjectUnderTest;
 
-        var actual = await controller.GetUserProfiles() as IStatusCodeActionResult;
+        var actual = await controller.GetTaskBoards() as IStatusCodeActionResult;
 
         actual.Should().NotBeNull();
         actual?.StatusCode.Should().Be(expectResult);
@@ -26,11 +26,11 @@ public class UserProfileControllerTests
 
     [Theory]
     [ClassData(typeof(GetTaskBoardsAsyncTestAsyncData))]
-    public async Task GetUserProfileAsyncTestAsync(Result<UserProfileDTO> mockData, int expectResult)
+    public async Task GetTaskBoardAsyncTestAsync(Result<TaskBoardDTO> mockData, int expectResult)
     {
         var controller = ObjectUnderTest;
 
-        var actual = await controller.GetUserProfile("username") as IStatusCodeActionResult;
+        var actual = await controller.GetTaskBoard(0) as IStatusCodeActionResult;
 
         actual.Should().NotBeNull();
         actual?.StatusCode.Should().Be(expectResult);
@@ -40,7 +40,7 @@ public class UserProfileControllerTests
 
 
 
-internal class GetUserProfilesAsyncTestAsyncData : IEnumerable<object[]>
+internal class GetTaskBoardsAsyncTestAsyncData : IEnumerable<object[]>
 {
     public IEnumerator<object[]> GetEnumerator()
     {
