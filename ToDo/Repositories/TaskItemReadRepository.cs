@@ -12,7 +12,7 @@ public class TaskItemReadRepository(AppDbContext _context)
 
     public async Task<IList<TaskItemEntity>> ListAsync(int? take = default, CancellationToken ct = default){
         if (take is not null)
-            return await _context.TaskItems.Take(take).ToListAsync(ct);
+            return await _context.TaskItems.Take(take!).ToListAsync(ct);
         return await _context.TaskItems.ToListAsync(ct);
     }
 
