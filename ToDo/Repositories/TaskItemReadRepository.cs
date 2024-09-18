@@ -11,6 +11,8 @@ public class TaskItemReadRepository(AppDbContext _context)
     internal override IAsyncEnumerator<TaskItemEntity> _items => _context.TaskItems.GetAsyncEnumerator();
 
     public async Task<IList<TaskItemEntity>> ListAsync(int? take = default, CancellationToken ct = default){
+        if (take is not null)
+            return await _context.TaskItems.Take(take).ToListAsync(ct);
         return await _context.TaskItems.ToListAsync(ct);
     }
 
