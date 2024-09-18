@@ -42,7 +42,7 @@ public class TaskItemService(
 
     public async Task<Result<IList<TaskItemDTO>>> GetItemsAsync()
     {
-        var items = _itemReaderRepo.ToBlockingEnumerable().Select(i => new TaskItemDTO()
+        var items = ( await _itemReaderRepo.ListAsync()).Select(i => new TaskItemDTO()
         {
             Id = i.Id,
             Title = i.Title,

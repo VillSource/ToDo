@@ -10,6 +10,10 @@ public class TaskItemReadRepository(AppDbContext _context)
 {
     internal override IAsyncEnumerator<TaskItemEntity> _items => _context.TaskItems.GetAsyncEnumerator();
 
+    public async Task<IList<TaskItemEntity>> ListAsync(int? take = defult, CancellationToken ct = default){
+        return await _context.TaskItems.ToList();
+    }
+
     public override async Task<TaskItemEntity?> GetByIdAsync(int id, CancellationToken ct = default)
     {
         return await _context.TaskItems.FirstOrDefaultAsync(i => i.Id == id, ct);

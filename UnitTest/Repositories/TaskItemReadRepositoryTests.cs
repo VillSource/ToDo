@@ -61,4 +61,15 @@ public class TaskItemReadRepositoryTests : IDisposable
         actual.Should().BeNull();
     }
 
+    [Theory]
+    [InlineData(null, _dataMockTaskItems.Count)]
+    [InlineData(2, 2)]
+    public async Task ListAsyncTest(int? take, int expectedElement){
+        var repo = ObjectUnderTest;
+
+        var actual = await repo.ListAsync(take);
+
+        actual.Count.Should().Be(expectedElement);
+    }
+
 }
